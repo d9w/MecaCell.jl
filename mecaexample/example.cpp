@@ -6,6 +6,6 @@
 int main(int argc, char **argv) {
   Scenario scenario;
   scenario.init(argc, argv);
-	MecacellViewer::Viewer<Scenario> v(scenario);
-	return v.exec(argc, argv);
+  MecacellViewer::Viewer<Scenario> v(scenario);
+  return v.exec(argc, argv);
 }
