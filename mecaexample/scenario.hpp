@@ -14,7 +14,7 @@ class Scenario {
 	// called at initialisation
   void init(int argc, char** argv) {
 		// here we just add a cell at (0,0,0);
-    w.addCell(new Cell(MecaCell::Vec::zero()));
+    w.addCell(new Cell());
 	}
 
 	void loop(){

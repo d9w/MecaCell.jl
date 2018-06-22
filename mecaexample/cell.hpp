@@ -7,6 +7,7 @@ class Cell : public MecaCell::ConnectableCell<Cell, MecaCell::SpringBody> {
 
 public:
 	using Parent = MecaCell::ConnectableCell<Cell, MecaCell::SpringBody>;
+	Cell() : Parent(MecaCell::Vec::zero()) {}
 	Cell(const MecaCell::Vector3D& v) : Parent(v) {}
 
 	// returns the adhesion coef (between 0 & 1) with the cell *c
