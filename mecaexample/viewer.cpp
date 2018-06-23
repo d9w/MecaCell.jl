@@ -1,5 +1,5 @@
-#include "mecacell/mecacell.h"
-#include "mecacellviewer/viewer.h"
+#include <mecacell/mecacell.h>
+#include <mecacellviewer/viewer.h>
 #include "cell.hpp"
 #include "scenario.hpp"
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 project(example)
 
 set(CMAKE_CXX_COMPILER g++)
@@ -9,19 +9,21 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/bin)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
+set(MECACELL_DIR include/mecacell)
+
 file(GLOB SRC
-	"mecaexample/scenario.hpp"
-	"mecaexample/cell.hpp"
+	"mecaexample/*.hpp"
 )
 
-set(CMAKE_AUTOMOC ON)
-find_package(Qt5Core)
-find_package(Qt5Widgets)
-find_package(Qt5Gui)
-find_package(Qt5Quick)
-find_package(Qt5OpenGL)
-find_package(Qt5QuickWidgets)
+add_executable(console ${SRC} mecaexample/console.cpp)
+target_include_directories(console PUBLIC ${MECACELL_DIR})
 
-add_executable(example ${SRC} mecaexample/example.cpp)
-target_include_directories(example PUBLIC include/mecacell)
-target_link_libraries(example Qt5::Quick Qt5::Core Qt5::Gui OpenGL)
+set(MECACELL_VIEWER_DIR ${MECACELL_DIR}/mecacellviewer)
+find_package(Qt5 COMPONENTS Core Quick REQUIRED)
+set(CMAKE_AUTOMOC ON)
+cmake_policy(SET CMP0071 NEW)
+qt5_wrap_cpp(MOC_SRC ${MECACELL_VIEWER_DIR}/signalslotbase.h ${MECACELL_VIEWER_DIR}/camera.hpp)
+qt5_add_resources(RESOURCES ${MECACELL_VIEWER_DIR}/resourcesLibMecacellViewer.qrc)
+add_executable(viewer ${SRC} ${MOC_SRC} ${RESOURCES} mecaexample/viewer.cpp)
+target_link_libraries(viewer Qt5::Core Qt5::Quick)
+target_include_directories(viewer PUBLIC ${MECACELL_DIR} ${MECACELL_VIEWER_DIR})
