@@ -16,14 +16,12 @@ file(GLOB SRC
 
 set(CMAKE_AUTOMOC ON)
 find_package(Qt5Core)
+find_package(Qt5Widgets)
 find_package(Qt5Gui)
 find_package(Qt5Quick)
 find_package(Qt5OpenGL)
+find_package(Qt5QuickWidgets)
+
 add_executable(example ${SRC} mecaexample/example.cpp)
-target_include_directories(example PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/mecacell>
-  $<INSTALL_INTERFACE:include/mecacell>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/mecacellviewer>
-  $<INSTALL_INTERFACE:include/mecacellviewer>
-)
+target_include_directories(example PUBLIC include/mecacell)
 target_link_libraries(example Qt5::Quick Qt5::Core Qt5::Gui OpenGL)
